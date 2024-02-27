@@ -14,9 +14,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
-    {{-- @wireUiScripts --}}
+    @wireUiScripts
 
-    {{-- <script src="//unpkg.com/alpinejs" defer></script> --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -33,9 +33,10 @@
 
 </head>
 
-{{-- class="dark:bg-gray-800 bg-gray-300 " --}}
 
 <body class="dark:bg-gray-800 bg-gray-300">
+
+    <x-notifications z-index="z-50" />
 
     {{ $slot }}
 

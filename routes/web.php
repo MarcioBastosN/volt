@@ -7,8 +7,8 @@ use Livewire\Volt\Volt;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('user.home');
-})->name('home');
+// Route::get('/', function () {
+//     return view('user.home');
+// })->name('home');
 
-// Volt::route('/', 'usercreate');
+Volt::route('/', 'usercreate')->name('home');
