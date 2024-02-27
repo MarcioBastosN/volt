@@ -1,0 +1,59 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: marcio
+        uid: 1000
+      context: ./
+      dockerfile: docker-compose/app/Dockerfile
+    image: volt
+    container_name: volt-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/php/php.ini:/usr/local/etc/php/php.ini
+    environment:
+      - TZ=America/Santarem
+    networks:
+      volt:
+        ipv4_address: 172.16.17.44
+
+  db:
+    image: postgres:12.6-alpine
+    container_name: volt-db
+    restart: unless-stopped
+    ports:
+        - "5002:5432"
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /home/dbdata/volt:/var/lib/postgresql/data
+    networks:
+      volt:
+        ipv4_address: 172.16.17.45
+
+  nginx:
+    image: nginx:alpine
+    container_name: volt-nginx
+    restart: unless-stopped
+    ports:
+      - "8031:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    environment:
+      - TZ=America/Santarem
+    networks:
+      volt:
+        ipv4_address: 172.16.17.46
+
+networks:
+  volt:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.17.40/28
