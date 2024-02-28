@@ -75,7 +75,8 @@ $save = function () {
             @error('password')
                 <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
-            <button type="submit">Salvar</button>
+            <button type="submit" class="rounded-md bg-blue-400 py-2 my-2" wire:loading.attr='disable'
+                wire:target='save'>Salvar</button>
         </form>
         <div>
             <span wire:loading wire:target='search'>Loading</span>
